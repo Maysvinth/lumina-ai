@@ -1,0 +1,7 @@
+{
+  "name": "Lumina Voice AI",
+  "description": "A minimalist, voice-only AI assistant featuring a reactive pulsing orb interface powered by Gemini Live API for real-time natural conversations.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
