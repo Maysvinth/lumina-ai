@@ -1,161 +1,52 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My AI</title>
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumina Voice AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes orbit-pulse {
+      0%, 100% { 
+        transform: scale(1); 
+        opacity: 0.4; 
+        filter: blur(15px); 
+      }
+      50% { 
+        transform: scale(1.4); 
+        opacity: 0.8; 
+        filter: blur(30px); 
+      }
+    }
+    .animate-orbit-pulse {
+      animation: orbit-pulse 3s ease-in-out infinite;
+    }
     body {
-        margin: 0;
-        padding: 0;
-        background-color: #121212;
-        font-family: Arial, sans-serif;
-        color: white;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
+      background-color: #020202;
+      color: #ffffff;
+      margin: 0;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, sans-serif;
     }
-
-    #aiWrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
+    /* Hide scrollbars */
+    ::-webkit-scrollbar { display: none; }
+  </style>
+  <script type="importmap">
+  {
+    "imports": {
+      "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+      "react/": "https://esm.sh/react@^19.2.4/",
+      "react": "https://esm.sh/react@^19.2.4",
+      "@google/genai": "https://esm.sh/@google/genai@^1.40.0"
     }
-
-    /* Oval Character Selector */
-    #characterSelector {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 180px;
-        padding: 5px 15px;
-        border-radius: 25px;
-        background-color: #333;
-        color: white;
-        margin-bottom: 15px;
-        user-select: none;
-    }
-
-    #characterSelector span {
-        cursor: pointer;
-        font-size: 18px;
-        user-select: none;
-    }
-
-    /* Main AI Circle */
-    #aiCircle {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        color: white;
-        font-weight: bold;
-        margin-bottom: 15px;
-        text-align: center;
-        cursor: pointer;
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .connected {
-        animation: pulse 1.5s infinite;
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1); box-shadow: 0 0 15px rgba(255,255,255,0.4);}
-        50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(255,255,255,0.6);}
-        100% { transform: scale(1); box-shadow: 0 0 15px rgba(255,255,255,0.4);}
-    }
-
-    /* Connect/Disconnect Button */
-    #connectBtn {
-        padding: 8px 16px;
-        border: none;
-        border-radius: 8px;
-        background-color: #2196F3;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    #connectBtn:hover {
-        background-color: #1976D2;
-    }
-</style>
+  }
+  </script>
+<link rel="stylesheet" href="/index.css">
 </head>
 <body>
-
-<div id="aiWrapper">
-
-    <!-- Character Selector -->
-    <div id="characterSelector">
-        <span id="prevChar">◀</span>
-        <span id="charName">Character 1</span>
-        <span id="nextChar">▶</span>
-    </div>
-
-    <!-- Main AI Circle -->
-    <div id="aiCircle">
-        <span id="aiStatus">Disconnected</span>
-    </div>
-
-    <!-- Connect/Disconnect Button -->
-    <button id="connectBtn">Connect</button>
-
-</div>
-
-<script>
-    const characters = [
-        {name: "Character 1", color: "#4CAF50"},
-        {name: "Character 2", color: "#FF9800"},
-        {name: "Character 3", color: "#9C27B0"}
-    ];
-
-    let currentChar = 0;
-    let aiConnected = false;
-
-    const aiCircle = document.getElementById('aiCircle');
-    const aiStatus = document.getElementById('aiStatus');
-    const charName = document.getElementById('charName');
-    const prevChar = document.getElementById('prevChar');
-    const nextChar = document.getElementById('nextChar');
-    const connectBtn = document.getElementById('connectBtn');
-
-    function updateCharacter() {
-        const char = characters[currentChar];
-        charName.innerText = char.name;
-        aiCircle.style.backgroundColor = char.color;
-    }
-
-    prevChar.onclick = () => {
-        currentChar = (currentChar - 1 + characters.length) % characters.length;
-        updateCharacter();
-    };
-
-    nextChar.onclick = () => {
-        currentChar = (currentChar + 1) % characters.length;
-        updateCharacter();
-    };
-
-    connectBtn.onclick = () => {
-        aiConnected = !aiConnected;
-        aiStatus.innerText = aiConnected ? "Connected" : "Disconnected";
-        connectBtn.innerText = aiConnected ? "Disconnect" : "Connect";
-        aiCircle.classList.toggle("connected", aiConnected);
-        // TODO: Replace with your AI connect/disconnect functions
-        console.log(aiConnected ? "AI Connected ✅" : "AI Disconnected ❌");
-    };
-
-    updateCharacter();
-</script>
-
+  <div id="root"></div>
+  <script type="module" src="index.tsx"></script>
+<script type="module" src="/index.tsx"></script>
 </body>
 </html>
